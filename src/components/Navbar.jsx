@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { NavLink, Link } from 'react-router-dom';
 import { 
   LayoutDashboard, 
   PlusCircle, 
@@ -8,12 +8,10 @@ import {
 } from 'lucide-react';
 
 const Navbar = () => {
-  const [activeTab, setActiveTab] = useState('dashboard');
-
   const navItems = [
-    { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
-    { id: 'addexpense', label: 'Add Expense', icon: PlusCircle },
-    { id: 'analytics', label: 'Analytics', icon: BarChart3 }
+    { path: '/', label: 'Dashboard', icon: LayoutDashboard },
+    { path: '/add', label: 'Add Expense', icon: PlusCircle },
+    { path: '/analytics', label: 'Analytics', icon: BarChart3 }
   ];
 
   return (
@@ -21,26 +19,29 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <div className="flex items-center space-x-3 cursor-pointer group">
+          <Link 
+            to="/"
+            className="flex items-center space-x-3 cursor-pointer group"
+          >
             <div className="bg-white/20 p-2 rounded-lg group-hover:bg-white/30 transition-all duration-300">
               <Wallet className="h-6 w-6 text-white" />
             </div>
             <span className="text-white font-bold text-xl hidden sm:block">
               Expense Tracker
             </span>
-          </div>
+          </Link>
 
           {/* Navigation Items */}
           <div className="flex space-x-1 sm:space-x-2">
             {navItems.map((item) => {
               const Icon = item.icon;
-              const isActive = activeTab === item.id;
               
               return (
-                <button
-                  key={item.id}
-                  onClick={() => setActiveTab(item.id)}
-                  className={`
+                <NavLink
+                  key={item.path}
+                  to={item.path}
+                  end={item.path === '/'}
+                  className={({ isActive }) => `
                     flex items-center space-x-2 px-3 sm:px-4 py-2 rounded-lg
                     font-medium transition-all duration-300 transform
                     ${isActive 
@@ -53,7 +54,7 @@ const Navbar = () => {
                   <span className="hidden md:inline text-sm lg:text-base">
                     {item.label}
                   </span>
-                </button>
+                </NavLink>
               );
             })}
           </div>
