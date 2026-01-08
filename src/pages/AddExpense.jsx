@@ -41,7 +41,7 @@ const AddExpense = () => {
     setMessage({ type: '', text: '' });
 
     // Validate form
-    if (!formData.amount || !formData.category || !formData.date) {
+    if (!formData.amount || !formData.category) {
       setMessage({ type: 'error', text: 'Please fill in all required fields' });
       setLoading(false);
       return;
@@ -52,7 +52,6 @@ const AddExpense = () => {
       amount: parseFloat(formData.amount),
       category: formData.category,
       description: formData.description,
-      date: formData.date,
     };
 
     // Call API
