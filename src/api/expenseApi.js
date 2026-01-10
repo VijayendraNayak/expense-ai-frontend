@@ -77,6 +77,19 @@ export const expenseApi = {
       };
     }
   },
+
+  // Get category summary
+  getCategorySummary: async () => {
+    try {
+      const response = await apiClient.get('/expense/summary/categories');
+      return { success: true, data: response.data };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.response?.data?.message || error.message || 'Failed to fetch category summary',
+      };
+    }
+  },
 };
 
 export default apiClient;
